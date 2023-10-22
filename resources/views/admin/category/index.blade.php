@@ -6,7 +6,7 @@
 @endsection
 @section('content')
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header">Liệt kê danh mục Game</div>
 
@@ -17,7 +17,7 @@
                         </div>
                     @endif
                     <a href="{{route('category.create')}}" class="btn btn-success">Thêm danh mục game</a>
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="myTable">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -54,6 +54,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    {{$category->links('pagination::bootstrap-4')}}
                 </div>
             </div>
         </div>
