@@ -25,7 +25,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="formFile" class="form-label">Hình ảnh</label>
-                        <input class="form-control" type="file" id="formFile">
+                        <input class="form-control" type="file" id="formFile" name="image">
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Description</label>

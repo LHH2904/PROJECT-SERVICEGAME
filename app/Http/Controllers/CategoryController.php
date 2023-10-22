@@ -35,6 +35,18 @@ class CategoryController extends Controller
         $category->description = $data['description'];
         $category->image = 'hinhanh1.jpg';
         $category->status = $data['status'];
+        // thêm hình ảnh vào folder
+        $get_image = $request->image;
+        $path = 'uploads/category/';
+
+        $get_name_image = $get_image->getClientOriginalName(); // [hinhabc].jpg lấy tên hình
+        $name_image = current(explode('.', $get_name_image));
+
+        $new_image = $name_image . rand(0, 99) . '.' . $get_image->getClientOriginalExtension();
+        $get_image->move($path, $new_image);
+
+        $category->image = $new_image;
+
         $category->save();
         return redirect()->back();
     }
