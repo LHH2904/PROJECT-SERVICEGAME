@@ -33,7 +33,6 @@ class CategoryController extends Controller
         $category = new Category();
         $category->title = $data['title'];
         $category->description = $data['description'];
-        $category->image = 'hinhanh1.jpg';
         $category->status = $data['status'];
         // thêm hình ảnh vào folder
         $get_image = $request->image;
@@ -64,7 +63,8 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category = Category::find($id);
+        return view('admin.category.edit', compact('category'));
     }
 
     /**
@@ -72,7 +72,31 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = $request->all();
+        $category = Category::find($id);
+        $category->title = $data['title'];
+        $category->description = $data['description'];
+        $category->status = $data['status'];
+        // thêm hình ảnh vào folder
+        $get_image = $request->image;
+        if ($get_image) {
+            // bỏ hình ảnh cũ đã lưu trong uploads
+            $path_unlink = 'uploads/category/' . $category->image;
+            if (file_exists($path_unlink)) {
+                unlink($path_unlink);
+            }
+            // Thêm hình ảnh mới
+            $path = 'uploads/category/';
+            $get_name_image = $get_image->getClientOriginalName(); // [hinhabc].jpg lấy tên hình
+            $name_image = current(explode('.', $get_name_image));
+            $new_image = $name_image . rand(0, 99) . '.' . $get_image->getClientOriginalExtension();
+            $get_image->move($path, $new_image);
+            $category->image = $new_image;
+        }
+
+
+        $category->save();
+        return redirect()->back();
     }
 
     /**
@@ -80,6 +104,13 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $category = Category::find($id);
+        // bỏ hình ảnh cũ đã lưu trong uploads
+        $path_unlink = 'uploads/category/' . $category->image;
+        if (file_exists($path_unlink)) {
+            unlink($path_unlink);
+        }
+        $category->delete();
+        return redirect()->back();
     }
 }

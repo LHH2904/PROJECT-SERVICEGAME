@@ -43,8 +43,13 @@
                                     @endif
                                 </td>
                                 <td><img src="{{asset('uploads/category/'.$cate->image)}}" alt="" width="150px" height="100px"></td>
-                                <td>Doe</td>
-                                <td><a href="" class="btn btn-danger">Xóa</a><a href="" class="btn btn-warning">Sửa</a></td>
+                                <td>
+                                    <form action="{{route('category.destroy', [$cate->id])}}" method="POST">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button onclick="return confirm('Bạn muốn xóa danh mục game này không?')" class="btn btn-danger">Xóa</button>
+                                    </form>
+                                    <a href="{{route('category.edit',$cate->id)}}" class="btn btn-warning">Sửa</a></td>
                             </tr>
                             @endforeach
                         </tbody>
