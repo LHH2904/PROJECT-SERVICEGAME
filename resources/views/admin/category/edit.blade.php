@@ -31,7 +31,11 @@
                     @csrf
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Title</label>
-                        <input type="text" class="form-control" name="title" placeholder="..." value="{{$category->title}}" required>  
+                        <input type="text" class="form-control" name="title" placeholder="..." value="{{$category->title}}" required onkeyup="ChangeToSlug()" id="slug">  
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Slug</label>
+                        <input type="text" class="form-control" name="slug" placeholder="..." value="{{$category->slug}}" required id="convert_slug">  
                     </div>
                     <div class="mb-3">
                         <label for="formFile" class="form-label">Hình ảnh</label>

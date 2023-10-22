@@ -29,7 +29,11 @@
                     @csrf
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Title</label>
-                        <input type="text" class="form-control" name="title" placeholder="...">  
+                        <input type="text" class="form-control" name="title" placeholder="..." id="slug" onkeyup="ChangeToSlug()">  
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Slug</label>
+                        <input type="text" class="form-control" name="slug" id="convert_slug" placeholder="...">  
                     </div>
                     <div class="mb-3">
                         <label for="formFile" class="form-label">Hình ảnh</label>

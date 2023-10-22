@@ -33,6 +33,7 @@ class CategoryController extends Controller
         $data = $request->validate(
             [
                 'title' => 'required|unique:categories|max:255',
+                'slug' => 'required|unique:categories|max:255',
                 'description' => 'required|max:255',
                 'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_with=100,min_height=100,max_width=2000,max_height=2000',
                 'status' => 'required'
@@ -40,12 +41,15 @@ class CategoryController extends Controller
             [
                 'title.unique' => 'Tên danh mục game đã có xin vui lòng điền tên khác',
                 'title.required' => 'Tên danh mục game phải có',
+                'slug.unique' => 'Tên slug danh mục game đã có xin vui lòng điền tên khác',
+                'slug.required' => 'Tên slug danh mục game phải có',
                 'description.required' => 'Mô tả danh mục game phải có nhé',
                 'image.required' => 'Hình ảnh danh mục game phải có nhé',
             ]
         );
         $category = new Category();
         $category->title = $data['title'];
+        $category->slug = $data['slug'];
         $category->description = $data['description'];
         $category->status = $data['status'];
         // thêm hình ảnh vào folder
@@ -88,18 +92,20 @@ class CategoryController extends Controller
     {
         $data = $request->validate(
             [
-                'title' => 'required|unique:categories|max:255',
+                'title' => 'required|max:255',
+                'slug' => 'required|max:255',
                 'description' => 'required|max:255',
                 'status' => 'required'
             ],
             [
-                'title.unique' => 'Tên danh mục game đã có xin vui lòng điền tên khác',
                 'title.required' => 'Tên danh mục game phải có',
+                'slug.required' => 'Tên slug danh mục game phải có',
                 'description.required' => 'Mô tả danh mục game phải có nhé',
             ]
         );
         $category = Category::find($id);
         $category->title = $data['title'];
+        $category->slug = $data['slug'];
         $category->description = $data['description'];
         $category->status = $data['status'];
         // thêm hình ảnh vào folder
