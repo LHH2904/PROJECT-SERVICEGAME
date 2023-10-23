@@ -6,6 +6,9 @@
                     <a class="nav-link" href="{{url('/home')}}">Dashboard</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{route('slider.index')}}">Slider</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link active" aria-current="page" target="_blank" href="{{url('/')}}">Trang chủ</a>
                 </li>
                 <li class="nav-item">

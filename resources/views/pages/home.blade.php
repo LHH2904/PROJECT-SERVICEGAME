@@ -50,12 +50,12 @@
                             <div class="news_image">
                                 <img style="position: absolute;max-width: 79px;height: auto;top: -5px;right: -6px;z-index: 1122;"
                                     src="{{ asset('frontend/images/giam.png') }}" />
-                                <a href="{{route('danhmuc')}}" title="{{$cate->title}}" class="">
+                                <a href="{{route('danhmucgame',[$cate->slug])}}" title="{{$cate->title}}" class="">
                                     <img src="{{ asset('/uploads/category/'.$cate->image) }}" alt="{{$cate->title}}"></a>
                             </div>
                             <div class="news_title">
                                 <h2>
-                                    <a href="{{route('danhmuc')}}" title="{{$cate->title}}">{{$cate->title}}</a>
+                                    <a href="{{route('danhmucgame',[$cate->slug])}}" title="{{$cate->title}}">{{$cate->title}}</a>
                                 </h2>
                             </div>
                             <div class="news_description">
