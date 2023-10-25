@@ -80,6 +80,7 @@
         </main>
     </div>
     <script type="text/javascript" src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    
     <script>
         let table = new DataTable('#myTable');
     </script>
@@ -114,6 +115,19 @@
                     //In slug ra textbox có id “slug”
                 document.getElementById('convert_slug').value = slug;
             }
+    </script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#content_blog' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+        ClassicEditor
+        .create( document.querySelector( '#desc_blog' ) )
+        .catch( error => {
+            console.error( error );
+        } );
     </script>
 </body>
 </html>

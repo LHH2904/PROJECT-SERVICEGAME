@@ -18,6 +18,9 @@
                     <a class="nav-link" href="#">Dịch vụ game</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{route('blog.index')}}">Blogs</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="#">Nick game</a>
                 </li>
                 {{-- <li class="nav-item dropdown">

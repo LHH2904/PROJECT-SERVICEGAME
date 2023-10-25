@@ -8,7 +8,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header">Liệt kê danh mục Game</div>
+                <div class="card-header">Liệt kê bài viết</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -16,13 +16,13 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <a href="{{route('category.create')}}" class="btn btn-success">Thêm danh mục game</a>
+                    <a href="{{route('blog.create')}}" class="btn btn-success">Thêm bài viết</a>
                     <table class="table table-striped" id="myTable">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Tên danh mục</th>
-                                <th>Slug danh mục</th>
+                                <th>Tên bài viết</th>
+                                <th>Slug</th>
                                 <th>Mô tả</th>
                                 <th>Hiển thị</th>
                                 <th>Hình ảnh</th>
@@ -31,33 +31,32 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($category as $key => $cate)
+                            @foreach ($blogs as $key => $blog)
                             <tr>
                                 <td>{{$key}}</td>
-                                <td>{{$cate->title}}</td>
-                                <td>{{$cate->slug}}</td>
-                                <td>{{$cate->description}}</td>
+                                <td>{{$blog->title}}</td>
+                                <td>{{$blog->slug}}</td>
+                                <td>{!!$blog->description!!}</td>
                                 <td>
-                                    @if($cate->status == 0)
+                                    @if($blog->status == 0)
                                     Không hiển thị
                                     @else
                                     Hiển thị
                                     @endif
                                 </td>
-                                <td><img src="{{asset('uploads/category/'.$cate->image)}}" alt="" width="150px" height="100px"></td>
+                                <td><img src="{{asset('uploads/blog/'.$blog->image)}}" alt="" width="150px" height="100px"></td>
                                 <td>
-                                    <form action="{{route('category.destroy', [$cate->id])}}" method="POST">
+                                    <form action="{{route('blog.destroy', [$blog->id])}}" method="POST">
                                         @method('DELETE')
                                         @csrf
-                                        <button onclick="return confirm('Bạn muốn xóa danh mục game này không?')" class="btn btn-danger">Xóa</button>
+                                        <button onclick="return confirm('Bạn muốn xóa bài viết game này không?')" class="btn btn-danger">Xóa</button>
                                     </form>
-                                    <a href="{{route('category.edit',$cate->id)}}" class="btn btn-warning">Sửa</a>
-                                </td>
+                                    <a href="{{route('blog.edit',$blog->id)}}" class="btn btn-warning">Sửa</a></td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    {{$category->links('pagination::bootstrap-4')}}
+                    {{$blogs->links('pagination::bootstrap-4')}}
                 </div>
             </div>
         </div>
