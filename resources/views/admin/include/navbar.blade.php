@@ -18,7 +18,13 @@
                     <a class="nav-link" href="#">Dịch vụ game</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{route('accessories.index')}}">Phụ kiện</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{route('blog.index')}}">Blogs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('video.create')}}">Videos</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Nick game</a>

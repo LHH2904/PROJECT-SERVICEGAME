@@ -8,7 +8,7 @@
 <div class="row justify-content-center">
     <div class="col-md-8">
         <div class="card">
-            <div class="card-header">Cập nhật bài viết</div>
+            <div class="card-header">Cập nhật Video Game</div>
             @if($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -24,36 +24,37 @@
                         {{ session('status') }}
                     </div>
                 @endif
-                <a href="{{route('blog.index')}}" class="btn btn-success">Liệt kê danh sách bài viết</a>
-                <a href="{{route('blog.create')}}" class="btn btn-primary">Thêm mới bài viết</a>
-                <form action="{{route('blog.update',$blog->id)}}" method="POST" enctype="multipart/form-data">
+                <a href="{{route('video.index')}}" class="btn btn-success">Liệt kê danh sách Video Game</a>
+                <a href="{{route('video.create')}}" class="btn btn-success">Thêm mới Video Game</a>
+                <form action="{{route('video.update',$video->id)}}" method="POST" enctype="multipart/form-data">
                     @method('PUT')
                     @csrf
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Title</label>
-                        <input type="text" class="form-control" name="title" placeholder="..." id="slug" value="{{$blog->title}}" onkeyup="ChangeToSlug()">  
+                        <input type="text" class="form-control" name="title" placeholder="..." id="slug" onkeyup="ChangeToSlug()" value="{{$video->title}}">  
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Link</label>
+                        <input type="text" class="form-control" name="link" placeholder="Link Youtube..." value="{{$video->link}}">  
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Slug</label>
-                        <input type="text" class="form-control" name="slug" id="convert_slug" value="{{$blog->slug}}" placeholder="...">  
+                        <input type="text" class="form-control" name="slug" id="convert_slug" placeholder="..." value="{{$video->slug}}">  
                     </div>
                     <div class="mb-3">
                         <label for="formFile" class="form-label">Hình ảnh</label>
                         <input class="form-control" type="file" id="formFile" name="image">
-                        <img src="{{asset('uploads/blog/'.$blog->image)}}" alt="" width="150px" height="100px">
+                        <img src="{{asset('uploads/video/'.$video->image)}}" alt="" width="150px" height="100px">
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Description</label>
-                        <textarea class="form-control" name="description" id="desc_blog" placeholder="...">{{$blog->description}}</textarea>
+                        <textarea class="form-control" name="description" id="desc_blog" placeholder="...">{{$video->description}}</textarea>
                     </div>
-                    <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Nội dung</label>
-                        <textarea class="form-control" name="content" id="content_blog" placeholder="...">{{$blog->content}}</textarea>
-                    </div>
+                    
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Status</label>
-                        <select class="form-select form-control" name="status" required>
-                            @if($blog->status == 1)
+                        <select class="form-select form-control" name="status">
+                            @if($video->status == 1)
                             <option value="1" selected>Hiển thị</option>
                             <option value="0">Không hiển thị</option>
                             @else
@@ -62,19 +63,7 @@
                             @endif
                         </select>
                     </div>
-                    <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Loại tin</label>
-                        <select class="form-select form-control" name="kind_of_blogs">
-                            @if($blog->kind_of_blogs == 'blogs')
-                            <option value="blogs" selected>Blogs</option>
-                            <option value="huongdan">Hướng dẫn</option>
-                            @else
-                            <option value="blogs">Blogs</option>
-                            <option value="huongdan" selected>Hướng dẫn</option>
-                            @endif
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Cập nhật</button>
+                    <button type="submit" class="btn btn-primary">Cập nhật Video</button>
                 </form>
             </div>
         </div>

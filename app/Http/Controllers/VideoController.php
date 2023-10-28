@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Blog;
 use Illuminate\Http\Request;
+use App\Models\Video;
 
-class BlogController extends Controller
+class VideoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $blogs = Blog::orderBy('id', 'DESC')->paginate(6);
-        return view('admin.blog.index', compact('blogs'));
+        $videos = Video::orderBy('id', 'DESC')->paginate(3);
+        return view('admin.video.index', compact('videos'));
     }
 
     /**
@@ -21,7 +21,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view('admin.blog.create');
+        return view('admin.video.create');
     }
 
     /**
@@ -30,26 +30,25 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $blog = new Blog();
-        $blog->title = $data['title'];
-        $blog->kind_of_blogs = $data['kind_of_blogs'];
-        $blog->slug = $data['slug'];
-        $blog->description = $data['description'];
-        $blog->content = $data['content'];
-        $blog->status = $data['status'];
+        $video = new Video();
+        $video->title = $data['title'];
+        $video->slug = $data['slug'];
+        $video->description = $data['description'];
+        $video->link = $data['link'];
+        $video->status = $data['status'];
 
         $get_image = $request->image;
         if ($get_image) {
-            $path = 'uploads/blog/';
+            $path = 'uploads/video/';
             $get_name_image = $get_image->getClientOriginalName(); //hinh.jpg
             $name_image = current(explode('.', $get_name_image)); //hinh . jpg (current lấy được cái tên -> hinh, end lấy được cái đuôi-> jpg)
             $new_image = $name_image . rand(0, 99) . '.' . $get_image->getClientOriginalExtension(); //hinh12.jpg
             $get_image->move($path, $new_image);
-            $blog->image = $new_image;
+            $video->image = $new_image;
         }
 
-        $blog->save();
-        return redirect()->route('blog.index')->with('status', 'Thêm bài viết thành công');
+        $video->save();
+        return redirect()->route('video.index')->with('status', 'Thêm Video thành công');
     }
 
     /**
@@ -65,8 +64,8 @@ class BlogController extends Controller
      */
     public function edit(string $id)
     {
-        $blog = Blog::find($id);
-        return view('admin.blog.edit', compact('blog'));
+        $video = Video::find($id);
+        return view('admin.video.edit', compact('video'));
     }
 
     /**
@@ -75,26 +74,25 @@ class BlogController extends Controller
     public function update(Request $request, string $id)
     {
         $data = $request->all();
-        $blog = Blog::find($id);
-        $blog->title = $data['title'];
-        $blog->kind_of_blogs = $data['kind_of_blogs'];
-        $blog->slug = $data['slug'];
-        $blog->description = $data['description'];
-        $blog->content = $data['content'];
-        $blog->status = $data['status'];
+        $video = Video::find($id);
+        $video->title = $data['title'];
+        $video->slug = $data['slug'];
+        $video->description = $data['description'];
+        $video->link = $data['link'];
+        $video->status = $data['status'];
 
         $get_image = $request->image;
         if ($get_image) {
-            $path = 'uploads/blog/';
+            $path = 'uploads/video/';
             $get_name_image = $get_image->getClientOriginalName(); //hinh.jpg
             $name_image = current(explode('.', $get_name_image)); //hinh . jpg (current lấy được cái tên -> hinh, end lấy được cái đuôi-> jpg)
             $new_image = $name_image . rand(0, 99) . '.' . $get_image->getClientOriginalExtension(); //hinh12.jpg
             $get_image->move($path, $new_image);
-            $blog->image = $new_image;
+            $video->image = $new_image;
         }
 
-        $blog->save();
-        return redirect()->route('blog.index')->with('status', 'Cập nhật bài viết thành công');
+        $video->save();
+        return redirect()->route('video.index')->with('status', 'Cập nhật Video thành công');
     }
 
     /**
@@ -102,13 +100,13 @@ class BlogController extends Controller
      */
     public function destroy(string $id)
     {
-        $blogs = Blog::find($id);
+        $video = Video::find($id);
         // bỏ hình ảnh cũ đã lưu trong uploads
-        $path_unlink = 'uploads/blog/' . $blogs->image;
+        $path_unlink = 'uploads/video/' . $video->image;
         if (file_exists($path_unlink)) {
             unlink($path_unlink);
         }
-        $blogs->delete();
-        return redirect()->back();
+        $video->delete();
+        return redirect()->route('video.index');
     }
 }

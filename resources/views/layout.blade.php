@@ -7,6 +7,8 @@
       <meta name="keywords" content="Web mua bán nick game, Web mua bán Acc Game, Shop mua bán Nick game,  Ngọc rồng - nro, ninja school - nso, avatar, Hải Tặc - HTTH, Làng Lá - LLPLK, Liên Quân - LQM, Liên Minh - LMHT - LOL , Đột kích - CF, Truy Kích, Army 2, Hiệp Sĩ - HSO, nick vip, giá rẻ , uy tín">
       <link rel="shortcut icon" href="/storage/images/TL2fjkL38e_1610595242.jpg" type="image/x-icon">
       <link rel="canonical" href="https://nick.vn"/>
+      {{-- Laravel csrf token mismatch for ajax POST Request --}}
+      <meta name="csrf-token" content="{{ csrf_token() }}" />
       <meta content="" name="author"/>
       <meta property="og:type" content="website"/>
       <meta property="og:url" content=""/>
@@ -270,17 +272,19 @@
                               <li class="c-menu-type-classic"><a target='_blank' rel="" href="https://nick.vn/blog/huong-dan-nap-tien-tu-dong-bang-atm-vao-nickvn" class="">Hướng dẫn nạp ATM tự động</a></li>
                            </ul>
                         </li>
+                        <li>
+                           <a href="{{route('video-highlight')}}" class="c-link dropdown-toggle">Video</a>
+                        </li>
                         <li class="c-menu-type-classic">
                            <a  rel=""  href="#" class="c-link dropdown-toggle ">Tin tức<span class="c-arrow c-toggler"></span></a>
                            <ul id="children-of-42" class="dropdown-menu c-menu-type-classic c-pull-left " >
-                              <li class="c-menu-type-classic"><a  rel="" href="/blog" class="">Blog</a></li>
-                              <li class="c-menu-type-classic"><a  rel="" href="/uy-tin-cua-shop" class="">UY T&Iacute;N CỦA SHOP</a></li>
-                              <li class="c-menu-type-classic"><a  rel="" href="/danh-sach-gdv-group" class="">Danh S&aacute;ch GDV group</a></li>
-                              <li class="c-menu-type-classic"><a  rel="" href="/dich-vu-game" class="">Dịch Vụ Game</a></li>
-                              <li class="c-menu-type-classic"><a  rel="" href="https://nick.vn/blog/dieu-khoan-su-dung-website-nickvn" class="">Điều khoản sử dụng website</a></li>
-                              <li class="c-menu-type-classic"><a  rel="" href="https://nick.vn/blog/chinh-sach-tai-nickvn" class="">Ch&iacute;nh s&aacute;ch tại Nick.vn</a></li>
+                              <li class="c-menu-type-classic"><a  rel="Blogs Game" href="{{route('blogs')}}" class="">Blogs</a></li>
+                              @foreach ($blogs_huongdan as $key => $bloghd)
+                              <li class="c-menu-type-classic"><a  rel="" href="{{route('blogs_detail',[$bloghd->slug])}}" class="">{{$bloghd->title}}</a></li>
+                              @endforeach
                            </ul>
                         </li>
+                        
                         <li><a href="/login" class="c-btn-border-opacity-04 c-btn btn-no-focus c-btn-header btn btn-sm c-btn-border-1x c-btn-dark c-btn-circle c-btn-uppercase c-btn-sbold">
                            <i class="icon-user"></i> Đăng nhập</a>
                         </li>
@@ -313,6 +317,7 @@
                               <li class="c-menu-type-classic"><a  rel="" href="https://nick.vn/blog/chinh-sach-tai-nickvn" class="">Ch&iacute;nh s&aacute;ch tại Nick.vn</a></li>
                            </ul>
                         </li>
+                        
                         <li><a href="/login" class="c-btn-border-opacity-04 c-btn btn-no-focus c-btn-header btn btn-sm c-btn-border-1x c-btn-dark c-btn-circle c-btn-uppercase c-btn-sbold">
                            <i class="icon-user"></i> Đăng nhập</a>
                         </li>
@@ -653,6 +658,30 @@
          gtag('js', new Date());
          
          gtag('config', 'G-MZBLL7R7EG');
+      </script>
+      <script>
+         function video_highlight($id) {
+            
+            // alert($id);
+            // $('#video_highlight').modal('show');
+            // ajax
+            var id = $id;
+            $.ajax({
+               url: "{{route('show_video')}}",
+               method: 'POST',
+               dataType: 'JSON',
+               data:{id:id},
+               headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               },
+               success: function(data){
+                  $('#video_title').html(data.video_title);
+                  $('#video_description').html(data.video_description);
+                  $('#video_link').html(data.video_link);
+                  $('#video_highlight').modal('show');
+               }
+            })
+         }
       </script>
    </body>
 </html>
